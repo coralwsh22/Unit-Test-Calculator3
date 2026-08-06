@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO & Search Engine Optimization Tags -->
+  <title>Test Calculator | Unit Test Percentage & Score Calculator</title>
+  <meta name="description" content="Free online test calculator. Easily calculate unit test percentage, scaled marks out of 40 or 50, and total grade score instantly.">
+  <meta name="keywords" content="test calculator, unit test calculator, percentage calculator, mark calculator, test score calculator">
+
+  <!-- Google Font: Dancing Script & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* 1. Moving Gradient Background */
+    body {
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(-45deg, #00c6ff, #0072ff, #0284c7, #2563eb);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 2. Floating Calculator Card */
+    .calculator-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: 340px;
+      text-align: center;
+      color: #ffffff;
+      animation: floatCard 4s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .calculator-card h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+
+    label {
+      display: inline-block;
+      margin-bottom: 6px;
+      font-size: 20px;
+      color: #cbd5e1;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+      outline: none;
+      transition: border 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #38bdf8;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 22px;
+      font-family: 'Dancing Script', cursive;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: #fff;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    #userOutput {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #38bdf8;
+      min-height: 25px;
+      word-wrap: break-word;
+    }
+
+    /* 3. Floating Sea Emojis Layer */
+    .sea-emojis {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .sea-emojis span {
+      position: absolute;
+      font-size: 34px;
+      bottom: -60px;
+      animation: floatSea 12s linear infinite;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .sea-emojis span:nth-child(1) { left: 8%;  font-size: 36px; animation-duration: 10s; }
+    .sea-emojis span:nth-child(2) { left: 22%; font-size: 42px; animation-duration: 14s; animation-delay: 2s; }
+    .sea-emojis span:nth-child(3) { left: 45%; font-size: 38px; animation-duration: 11s; animation-delay: 1s; }
+    .sea-emojis span:nth-child(4) { left: 65%; font-size: 32px; animation-duration: 13s; animation-delay: 3s; }
+    .sea-emojis span:nth-child(5) { left: 82%; font-size: 40px; animation-duration: 9s;  animation-delay: 4s; }
+    .sea-emojis span:nth-child(6) { left: 35%; font-size: 36px; animation-duration: 15s; }
+    .sea-emojis span:nth-child(7) { left: 92%; font-size: 28px; animation-duration: 12s; animation-delay: 1.5s; }
+
+    @keyframes floatSea {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      50% { transform: translateY(-500px) rotate(15deg); }
+      100% { transform: translateY(-1000px) rotate(-15deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Sea Emojis Layer -->
+  <div class="sea-emojis">
+    <span>🐠</span>
+    <span>🐬</span>
+    <span>🌊</span>
+    <span>🐚</span>
+    <span>🐙</span>
+    <span>🐢</span>
+    <span>✨</span>
+  </div>
+
+  <div class="calculator-card">
+    <!-- Main Bold Title -->
+    <h1>Unit Test Calculator</h1>
+
+    <!-- STEP 1: HTML Inputs & Buttons -->
+    <label for="firstInput">Enter elective marks</label><br>
+    <input type="text" id="firstInput"><br><br>
+
+    <label for="restInput">enter rest marks with space in between</label><br>
+    <input type="text" id="restInput"><br><br>
+
+    <button onclick="calculate()">calculate</button>
+
+    <p id="userOutput"></p>
+  </div>
+
+  <!-- Search Engine Keyword Text Block -->
+  <div style="color: #cbd5e1; text-align: center; margin-top: 20px; font-family: 'Poppins', sans-serif; font-size: 14px; z-index: 10; position: relative;">
+    <h3 style="margin-bottom: 5px; font-size: 18px;">Online Unit Test Calculator</h3>
+    <p style="margin-top: 0; margin-bottom: 0;">Use this test calculator to calculate your overall unit test percentage with scaled subject marks instantly.</p>
+  </div>
+
+  <!-- STEP 2: The Translation Script -->
+  <script>
+    function calculate() {
+      // STEP 3: Grab inputs from HTML
+      let first = Number(document.getElementById("firstInput").value);
+      let restText= document.getElementById("restInput").value.trim();
+      let numbersArray=restText.split(" ");
+      let sum=first;
+
+      // Check if any non-elective mark is greater than 40
+      for(let i=0; i<numbersArray.length; i++) {
+        let currentMark = Number(numbersArray[i]);
+        if (currentMark > 40) {
+          document.getElementById("userOutput").innerText = "Error: Marks for non-elective subjects cannot be more than 40!";
+          return;
+        }
+      }
+
+      // STEP 4: Put your converted Java loops/math here!
+      let x=0;
+      for(let i=0; i<numbersArray.length; i++)
+      {
+        let num=Number(numbersArray[i])*1.25;
+        sum+=num;
+      }
+      let p=sum/5;
+
+      // STEP 5: Send the final result back to the HTML screen
+      document.getElementById("userOutput").innerText = "Percentage: " + p.toFixed(2) + "%";
+    }
+  </script>
+
+</body>
+</html>
